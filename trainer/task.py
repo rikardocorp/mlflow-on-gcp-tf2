@@ -127,8 +127,14 @@ def get_args():
     parser.add_argument(
         '--run-time-version',
         type=str,
-        default='1.15',
+        default='2.2',
         help='AI Platform Run time version')
+    parser.add_argument(
+        '--python-version',
+        type=str,
+        default='3.7',
+        help='AI Platform python version')
+    
     args, _ = parser.parse_known_args()
     return args
 
@@ -311,7 +317,7 @@ def train_and_evaluate(args):
         model_helper.create_model(args.model_name)
         # Create model version
         model_helper.deploy_model(model_gcs_path, args.model_name, run_id,
-                                  args.run_time_version)
+                                  args.run_time_version, args.python_version)
         logging.info('Model deployment in GCP completed')
     logging.info(
         'This model took: {} seconds to train and test.'.format(duration))

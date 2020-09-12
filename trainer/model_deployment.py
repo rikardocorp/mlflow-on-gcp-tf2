@@ -22,8 +22,8 @@ from googleapiclient import discovery
 from googleapiclient import errors
 
 _WAIT_FOR_COMPLETION_SLEEP_SECONDS = 10
-_PYTHON_VERSION = '3.5'
-_RUN_TIME_VERSION = '1.15'
+_PYTHON_VERSION = '3.7'
+_RUN_TIME_VERSION = '2.2'
 
 
 def _create_service():
@@ -116,7 +116,7 @@ class AIPlatformModel(object):
             logging.warning('Model "%s" already exists.', model_name)
 
     def deploy_model(self, bucket_name, model_name, model_version,
-                     runtime_version=_RUN_TIME_VERSION):
+                     runtime_version=_RUN_TIME_VERSION, python_version=_PYTHON_VERSION):
         """Deploys model on AI Platform.
 
         Args:
@@ -148,7 +148,7 @@ class AIPlatformModel(object):
                 'deploymentUri': '{}'.format(bucket_name),
                 'framework': 'TENSORFLOW',
                 'runtimeVersion': runtime_version,
-                'pythonVersion': _PYTHON_VERSION
+                'pythonVersion': python_version
             }
             parent = 'projects/{}/models/{}'.format(self._project_id,
                                                     model_name)
